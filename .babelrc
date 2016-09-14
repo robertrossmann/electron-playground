@@ -1,0 +1,10 @@
+{
+  "compact": false,
+  "comments": true,
+  "plugins": [
+    ["transform-es2015-modules-commonjs", { "allowTopLevelThis": false }],
+    ["transform-runtime", { "polyfill": false, "regenerator": false }],
+    "transform-async-to-generator",
+    "transform-class-properties"
+  ]
+}
