@@ -1,9 +1,12 @@
 import React from 'react'
 
-export default class Application extends React.Component {
-  render() {
-    return (
-      <h1>Hello world</h1>
-    )
-  }
+/**
+ * Main Application component
+ *
+ * @return  {Node}
+ */
+export default function Application() {
+  return (
+    <h1>Hello world!</h1>
+  )
 }
