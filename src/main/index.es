@@ -2,6 +2,7 @@ import electron from 'electron'
 import path from 'path'
 // @TODO: Only import this when developing
 import devtron from 'devtron'
+import installDevTools, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 
 // All the application windows currently open
 const windows = new Set()
@@ -17,6 +18,7 @@ electron.app.on('window-all-closed', () =>
 
 // Electron is ready to serve, open the main view
 electron.app.once('ready', () => devtron.install())
+electron.app.once('ready', () => installDevTools(REACT_DEVELOPER_TOOLS))
 electron.app.once('ready', mkwindow)
 
 // Someone clicked the application icon!
@@ -35,14 +37,15 @@ electron.app.on('activate', () => {
 function mkwindow() {
   const view = path.join(__dirname, '..', 'renderer', 'index.html')
   const window = new electron.BrowserWindow({
-    width: 900,
-    height: 600,
+    width: 1200,
+    height: 800,
     show: false
   })
 
   windows.add(window)
   window.once('closed', () => windows.delete(window))
   window.webContents.once('did-finish-load', () => {
+    window.openDevTools()
     window.show()
     window.focus()
   })

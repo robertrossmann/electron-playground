@@ -3,11 +3,11 @@ bin := node_modules/.bin/
 all: compile
 
 compile:
-	@$(bin)babel src --extensions .es --source-maps both --out-dir src
-	@$(bin)babel test --extensions .es --source-maps both --out-dir test
+	@$(bin)babel src --extensions .es,.jsx --source-maps both --out-dir src
+	@$(bin)babel test --extensions .es,.jsx --source-maps both --out-dir test
 
 lint:
-	@$(bin)eslint --ext .es src test
+	@$(bin)eslint --ext .es,.jsx src test
 
 test: compile
 	@$(bin)mocha
