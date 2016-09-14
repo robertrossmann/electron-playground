@@ -34,10 +34,18 @@ electron.app.on('activate', () => {
  */
 function mkwindow() {
   const view = path.join(__dirname, '..', 'renderer', 'index.html')
-  const window = new electron.BrowserWindow({ width: 600, height: 800 })
+  const window = new electron.BrowserWindow({
+    width: 900,
+    height: 600,
+    show: false
+  })
 
   windows.add(window)
   window.once('closed', () => windows.delete(window))
+  window.webContents.once('did-finish-load', () => {
+    window.show()
+    window.focus()
+  })
 
   window.loadURL(`file://${view}`)
 }
