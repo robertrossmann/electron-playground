@@ -6,6 +6,9 @@
     "name": "Robert Rossmann",
     "email": "rr.rossmann@me.com"
   },
+  "bugs": {
+    "url": "https://github.com/Alaneor/electron-playground/issues"
+  },
   "contributors": [],
   "dependencies": {
     "babel-runtime": "^6.11.6",
@@ -35,9 +38,15 @@
     "mocha": "^3.0.2",
     "spectron": "^3.3.0"
   },
+  "homepage": "https://github.com/Alaneor/electron-playground",
   "keywords": [],
   "license": "BSD-3-Clause",
   "main": "src/main",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Alaneor/electron-playground.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   }
