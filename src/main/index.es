@@ -45,7 +45,6 @@ function mkwindow() {
   windows.add(window)
   window.once('closed', () => windows.delete(window))
   window.webContents.once('did-finish-load', () => {
-    window.openDevTools()
     window.show()
     window.focus()
   })
