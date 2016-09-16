@@ -2,7 +2,10 @@ import electron from 'electron'
 import path from 'path'
 // @TODO: Only import this when developing
 import devtron from 'devtron'
-import installDevTools, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
+import install, {
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS
+} from 'electron-devtools-installer'
 
 // All the application windows currently open
 const windows = new Set()
@@ -18,7 +21,8 @@ electron.app.on('window-all-closed', () =>
 
 // Electron is ready to serve, open the main view
 electron.app.once('ready', () => devtron.install())
-electron.app.once('ready', () => installDevTools(REACT_DEVELOPER_TOOLS))
+electron.app.once('ready', () => install(REACT_DEVELOPER_TOOLS))
+electron.app.once('ready', () => install(REDUX_DEVTOOLS))
 electron.app.once('ready', mkwindow)
 
 // Someone clicked the application icon!

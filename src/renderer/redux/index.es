@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import * as redux from 'redux'
 import reducers from './reducers'
 import state from './state'
 
@@ -10,9 +10,12 @@ const middleware = []
  *  @return    {Store}
  */
 export default function mkstore() {
-  return createStore(
-    combineReducers(reducers),
+  return redux.createStore(
+    redux.combineReducers(reducers),
     state,
-    applyMiddleware(...middleware)
+    redux.compose(
+      redux.applyMiddleware(...middleware),
+      window.devToolsExtension ? window.devToolsExtension() : unknown => unknown
+    )
   )
 }
