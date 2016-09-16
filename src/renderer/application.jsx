@@ -5,8 +5,17 @@ import React from 'react'
  *
  * @return  {Node}
  */
-export default function Application() {
-  return (
-    <h1>Hello world!</h1>
-  )
+export default class Application extends React.Component {
+
+  static styles = {
+    color: 'red'
+  }
+
+  render() {
+    return (
+      <div style={Application.styles}>
+        <h1>Hello world!</h1>
+      </div>
+    )
+  }
 }
