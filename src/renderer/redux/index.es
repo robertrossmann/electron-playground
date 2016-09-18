@@ -1,8 +1,11 @@
 import * as redux from 'redux'
+import logger from 'redux-logger'
 import reducers from './reducers'
 import state from './state'
 
-const middleware = []
+const middleware = [
+  logger
+]
 
 /**
  *  Create a new Redux store
