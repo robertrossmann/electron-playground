@@ -7,8 +7,11 @@ import EventListItem from './event-list-item'
 
 class EventList extends React.Component {
 
+  static propTypes = {
+    events: React.PropTypes.array.isRequired
+  }
+
   render() {
-    console.log(this.props)
     return (
       <ListGroup>
         <li className="list-group-header">
@@ -28,12 +31,24 @@ class EventList extends React.Component {
   }
 }
 
+/**
+ * Map state to component props
+ *
+ * @private
+ * @param     {Object}    state    Redux state
+ * @return    {Object}
+ */
 function mapState(state) {
   return {
     events: state.events
   }
 }
 
+/**
+ * Map dispatchers to component props
+ *
+ * @return    {Object}
+ */
 function mapDispatch() {
   return {}
 }
