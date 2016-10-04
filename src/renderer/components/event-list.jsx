@@ -9,7 +9,7 @@ import { events } from '../redux/actions'
 class EventList extends React.Component {
 
   static propTypes = {
-    events: React.PropTypes.object.isRequired,
+    events: React.PropTypes.array.isRequired,
     select: React.PropTypes.func
   }
 
