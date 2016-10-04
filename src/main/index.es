@@ -52,6 +52,7 @@ function mkwindow() {
   window.webContents.once('did-finish-load', () => {
     window.show()
     window.focus()
+    window.toggleDevTools()
   })
 
   window.loadURL(`file://${view}`)
