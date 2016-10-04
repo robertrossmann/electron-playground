@@ -13,7 +13,7 @@ class EventList extends React.Component {
     select: React.PropTypes.func
   }
 
-  handleClick(eventId) {
+  onClick(eventId) {
     this.props.select(eventId)
   }
 
@@ -35,7 +35,7 @@ class EventList extends React.Component {
             event={entries[key].name}
             location={entries[key].location}
             startsAt={entries[key].startsAt.toLocaleString()}
-            onClick={() => this.handleClick(key)}
+            onClick={() => this.onClick(key)}
           />
         )}
       </ListGroup>
