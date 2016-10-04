@@ -9,7 +9,7 @@ import { events } from '../redux/actions'
 class EventList extends React.Component {
 
   static propTypes = {
-    events: React.PropTypes.array.isRequired,
+    events: React.PropTypes.object.isRequired,
     select: React.PropTypes.func
   }
 
@@ -18,19 +18,24 @@ class EventList extends React.Component {
   }
 
   render() {
+    const {
+      entries,
+      meta
+    } = this.props.events
+
     return (
       <ListGroup>
         <li className="list-group-header">
           <input type="text" className="form-control" placeholder="Search events" />
         </li>
-        {this.props.events.map(event =>
+        {Object.keys(entries).map(key =>
           <EventListItem
-            key={event.data.id}
-            active={event.active}
-            event={event.data.name}
-            location={event.data.location}
-            startsAt={event.data.startsAt.toLocaleString()}
-            onClick={() => this.handleClick(event.data.id)}
+            key={key}
+            active={entries[key].id === meta.current}
+            event={entries[key].name}
+            location={entries[key].location}
+            startsAt={entries[key].startsAt.toLocaleString()}
+            onClick={() => this.handleClick(key)}
           />
         )}
       </ListGroup>
@@ -47,7 +52,7 @@ class EventList extends React.Component {
  */
 function mapState(state) {
   return {
-    events: state.events
+    events: state.events.toJS()
   }
 }
 
