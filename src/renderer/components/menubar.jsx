@@ -16,7 +16,7 @@ export default class Menubar extends React.Component {
   render() {
     return (
       <div style={this.style}>
-        <Toolbar title="Electron Playground">
+        <Toolbar title="StereoCast Manager">
           <Actionbar>
             <ButtonGroup>
               <Button glyph="home"/>
