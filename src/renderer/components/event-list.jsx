@@ -4,11 +4,17 @@ import {
   ListGroup
 } from 'react-photonkit'
 import EventListItem from './event-list-item'
+import { events } from '../redux/actions'
 
 class EventList extends React.Component {
 
   static propTypes = {
-    events: React.PropTypes.array.isRequired
+    events: React.PropTypes.object.isRequired,
+    select: React.PropTypes.func
+  }
+
+  handleClick(eventId) {
+    this.props.select(eventId)
   }
 
   render() {
@@ -24,7 +30,8 @@ class EventList extends React.Component {
             event={event.data.name}
             location={event.data.location}
             startsAt={event.data.startsAt.toLocaleString()}
-            />
+            onClick={() => this.handleClick(event.data.id)}
+          />
         )}
       </ListGroup>
     )
@@ -44,13 +51,8 @@ function mapState(state) {
   }
 }
 
-/**
- * Map dispatchers to component props
- *
- * @return    {Object}
- */
-function mapDispatch() {
-  return {}
+const mapDispatch = {
+  select: events.select
 }
 
 export default connect(mapState, mapDispatch)(EventList)

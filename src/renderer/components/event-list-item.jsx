@@ -6,7 +6,8 @@ export default class EventListItem extends React.Component {
     active: React.PropTypes.bool.isRequired,
     event: React.PropTypes.string.isRequired,
     location: React.PropTypes.string.isRequired,
-    startsAt: React.PropTypes.string.isRequired
+    startsAt: React.PropTypes.string.isRequired,
+    onClick: React.PropTypes.func.isRequired
   }
 
   render() {
@@ -17,7 +18,7 @@ export default class EventListItem extends React.Component {
     }
 
     return (
-      <li className={className}>
+      <li className={className} onClick={this.props.onClick}>
         <img
           className="img-rounded media-object pull-left"
           src="./img/event-placeholder.png"
