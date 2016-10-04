@@ -7,5 +7,12 @@ export default {
       type: events.select,
       id
     }
+  },
+
+  filter(text) {
+    return {
+      type: events.filter,
+      text
+    }
   }
 }

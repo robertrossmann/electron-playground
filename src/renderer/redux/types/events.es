@@ -1,3 +1,4 @@
 export default {
-  select: 'events.select'
+  select: 'events.select',
+  filter: 'events.filter'
 }
