@@ -7,6 +7,7 @@ export default class EventListItem extends React.Component {
     event: React.PropTypes.string.isRequired,
     location: React.PropTypes.string.isRequired,
     startsAt: React.PropTypes.string.isRequired,
+    cover: React.PropTypes.string,
     onClick: React.PropTypes.func.isRequired
   }
 
@@ -21,7 +22,7 @@ export default class EventListItem extends React.Component {
       <li className={className} onClick={this.props.onClick}>
         <img
           className="img-rounded media-object pull-left"
-          src="./img/event-placeholder.png"
+          src={this.props.cover || './img/event-placeholder.png'}
           width="64px"
           height="64px"
         />

@@ -65,14 +65,15 @@ class EventList extends React.Component {
             onChange={event => this.onChange(event.target.value)}
           />
         </li>
-        {Object.keys(entries).map(key =>
+        {entries.map(event =>
           <EventListItem
-            key={key}
-            active={entries[key].id === meta.current}
-            event={entries[key].title}
-            location={`${entries[key].location.venue}, ${entries[key].location.city}`}
-            startsAt={entries[key].startsAt.toLocaleString()}
-            onClick={() => this.onClick(key)}
+            key={event.id}
+            active={event.id === meta.current}
+            event={event.title}
+            location={`${event.location.venue}, ${event.location.city}`}
+            startsAt={(new Date(event.startsAt)).toLocaleString()}
+            cover={event.coverUrl}
+            onClick={() => this.onClick(event.id)}
           />
         )}
       </ListGroup>
@@ -89,8 +90,19 @@ class EventList extends React.Component {
  */
 function mapState(state) {
   const data = state.events.toJS()
+  // Transform entries into array
+  let entries = []
 
-  data.entries = applyFilter(data.entries, data.meta.filter)
+  for (const key of Object.keys(data.entries)) {
+    entries.push(data.entries[key])
+  }
+
+  // Apply filtering
+  entries = filter(entries, data.meta.filter)
+  // Sort
+  entries = sort(entries, 'startsAt')
+  // Export
+  data.entries = entries
 
   return {
     events: data
@@ -112,19 +124,39 @@ export default connect(mapState, mapDispatch)(EventList)
  * Apply a simple filter over the list of events, based on title
  *
  * @private
- * @param     {Object}    [state={}]      The initial object containing the events
- * @param     {String}    [filter='']     The filter to be applied
- * @return    {Object}                    The object with only matching events
+ * @param     {Array}     [entries=[]]    The initial array containing the events
+ * @param     {String}    [text='']       The filter to be applied
+ * @return    {Array}                     The array with only matching events
  */
-function applyFilter(state = {}, filter = '') {
-  const filtered = {}
-  const regexp = new RegExp(filter, 'gi')
+function filter(entries = [], text = '') {
+  const filtered = []
+  const regexp = new RegExp(text, 'gi')
 
-  for (const key of Object.keys(state)) {
-    if (state[key].title.match(regexp)) {
-      filtered[key] = state[key]
+  for (const entry of entries) {
+    if (entry.title.match(regexp)) {
+      filtered.push(entry)
     }
   }
 
   return filtered
+}
+
+/**
+ * Sort entries by the given field
+ *
+ * @private
+ * @param     {Array}     [entries=[]]    The entries to sort
+ * @param     {String}    field           The field to sort by
+ * @return    {Array}
+ */
+function sort(entries = [], field) {
+  if (!field) {
+    return entries
+  }
+
+  return entries.sort((first, second) =>
+    first[field] > second[field]
+      ? 1
+      : -1
+    )
 }
