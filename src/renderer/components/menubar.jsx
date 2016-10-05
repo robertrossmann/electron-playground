@@ -2,8 +2,7 @@ import React from 'react'
 import {
   Toolbar,
   Actionbar,
-  ButtonGroup,
-  Button
+  ButtonGroup
 } from 'react-photonkit'
 
 export default class Menubar extends React.Component {
@@ -18,10 +17,7 @@ export default class Menubar extends React.Component {
       <div style={this.style}>
         <Toolbar title="StereoCast Manager">
           <Actionbar>
-            <ButtonGroup>
-              <Button glyph="home"/>
-              <Button glyph="folder"/>
-            </ButtonGroup>
+            <ButtonGroup />
           </Actionbar>
         </Toolbar>
       </div>
