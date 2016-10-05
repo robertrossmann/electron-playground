@@ -39,6 +39,7 @@
     "redux-logger": "^2.6.1",
     "spectron": "^3.3.0"
   },
+  "engines": {},
   "homepage": "https://github.com/Alaneor/electron-playground",
   "keywords": [],
   "license": "BSD-3-Clause",
