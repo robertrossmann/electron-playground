@@ -5,14 +5,28 @@ import {
 } from 'react-photonkit'
 import EventListItem from './event-list-item'
 import { events } from '../redux/actions'
+import firebase from '../services/firebase'
 
 class EventList extends React.Component {
 
   static propTypes = {
     events: React.PropTypes.object.isRequired,
     select: React.PropTypes.func,
-    filter: React.PropTypes.func
+    filter: React.PropTypes.func,
+
+    // @TODO: This should not be necessary! But for now it silences ESLint
+    childAdded: React.PropTypes.func,
+    childRemoved: React.PropTypes.func,
+    childChanged: React.PropTypes.func
   }
+
+  events = firebase.database().ref('/events')
+
+  /* eslint-disable no-invalid-this */
+  childAdded = snapshot => this.props.childAdded(snapshot.val())
+  childRemoved = snapshot => this.props.childRemoved(snapshot.val())
+  childChanged = snapshot => this.props.childChanged(snapshot.val())
+  /* eslint-enable no-invalid-this */
 
   onClick(eventId) {
     this.props.select(eventId)
@@ -20,6 +34,18 @@ class EventList extends React.Component {
 
   onChange(text) {
     this.props.filter(text)
+  }
+
+  componentDidMount() {
+    this.events.on('child_added', this.childAdded)
+    this.events.on('child_removed', this.childRemoved)
+    this.events.on('child_changed', this.childChanged)
+  }
+
+  componentWillUnmount() {
+    this.events.off('child_added', this.childAdded)
+    this.events.off('child_removed', this.childRemoved)
+    this.events.off('child_changed', this.childChanged)
   }
 
   render() {
@@ -43,8 +69,8 @@ class EventList extends React.Component {
           <EventListItem
             key={key}
             active={entries[key].id === meta.current}
-            event={entries[key].name}
-            location={entries[key].location}
+            event={entries[key].title}
+            location={`${entries[key].location.venue}, ${entries[key].location.city}`}
             startsAt={entries[key].startsAt.toLocaleString()}
             onClick={() => this.onClick(key)}
           />
@@ -73,14 +99,17 @@ function mapState(state) {
 
 const mapDispatch = {
   select: events.select,
-  filter: events.filter
+  filter: events.filter,
+  childAdded: events.childAdded,
+  childRemoved: events.childRemoved,
+  childChanged: events.childChanged
 }
 
 export default connect(mapState, mapDispatch)(EventList)
 
 
 /**
- * Apply a simple filter over the list of events, based on name
+ * Apply a simple filter over the list of events, based on title
  *
  * @private
  * @param     {Object}    [state={}]      The initial object containing the events
@@ -92,7 +121,7 @@ function applyFilter(state = {}, filter = '') {
   const regexp = new RegExp(filter, 'gi')
 
   for (const key of Object.keys(state)) {
-    if (state[key].name.match(regexp)) {
+    if (state[key].title.match(regexp)) {
       filtered[key] = state[key]
     }
   }
