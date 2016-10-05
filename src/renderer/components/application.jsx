@@ -22,7 +22,7 @@ export default class Application extends React.Component {
         <Menubar />
         <Content>
           <PaneGroup>
-            <Pane sidebar className="pane-sm">
+            <Pane sidebar className="pane-one-fourth">
               <EventList />
             </Pane>
             <Pane>
