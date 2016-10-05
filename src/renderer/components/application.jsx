@@ -8,6 +8,7 @@ import {
 } from 'react-photonkit'
 import Menubar from './menubar'
 import EventList from './event-list'
+import EventDetail from './event-detail'
 
 /**
  * Main Application component
@@ -26,7 +27,7 @@ export default class Application extends React.Component {
               <EventList />
             </Pane>
             <Pane>
-              <div>Event details go here (WIP)</div>
+              <EventDetail />
             </Pane>
           </PaneGroup>
         </Content>
