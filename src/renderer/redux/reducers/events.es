@@ -44,9 +44,10 @@ export function filter(entries = [], text) {
 /**
  * Sort entries by the given field
  *
- * @param     {Array}     [entries=[]]    The entries to sort
- * @param     {String}    field           The field to sort by
- * @param     {Boolean}   descending      Sort in descending order instead of ascending
+ * @param     {Object}    opts              Sort options
+ * @param     {Array}     opts.entries      The entries to sort
+ * @param     {String}    opts.field        The field to sort by
+ * @param     {Boolean}   opts.descending   Sort in descending order instead of ascending
  * @return    {Array}
  */
 export function sort(opts = { entries: [], field: null, descending: false }) {
