@@ -4,7 +4,7 @@ import immutable from 'immutable'
 export default {
   events: immutable.fromJS({
     meta: {
-      current: '',
+      current: null,
       filter: ''
     },
 
