@@ -5,6 +5,7 @@ import {
 } from 'react-photonkit'
 import EventListItem from './event-list-item'
 import { events } from '../redux/actions'
+import * as mutators from '../redux/reducers/events'
 import firebase from '../services/firebase'
 
 class EventList extends React.Component {
@@ -97,11 +98,8 @@ function mapState(state) {
     entries.push(data.entries[key])
   }
 
-  // Apply filtering
-  entries = filter(entries, data.meta.filter)
-  // Sort
-  entries = sort(entries, 'startsAt')
-  // Export
+  entries = mutators.filter(entries, data.meta.filter)
+  entries = mutators.sort({ entries, field: 'startsAt', descending: true })
   data.entries = entries
 
   return {
@@ -118,45 +116,3 @@ const mapDispatch = {
 }
 
 export default connect(mapState, mapDispatch)(EventList)
-
-
-/**
- * Apply a simple filter over the list of events, based on title
- *
- * @private
- * @param     {Array}     [entries=[]]    The initial array containing the events
- * @param     {String}    [text='']       The filter to be applied
- * @return    {Array}                     The array with only matching events
- */
-function filter(entries = [], text = '') {
-  const filtered = []
-  const regexp = new RegExp(text, 'gi')
-
-  for (const entry of entries) {
-    if (entry.title.match(regexp)) {
-      filtered.push(entry)
-    }
-  }
-
-  return filtered
-}
-
-/**
- * Sort entries by the given field
- *
- * @private
- * @param     {Array}     [entries=[]]    The entries to sort
- * @param     {String}    field           The field to sort by
- * @return    {Array}
- */
-function sort(entries = [], field) {
-  if (!field) {
-    return entries
-  }
-
-  return entries.sort((first, second) =>
-    first[field] > second[field]
-      ? 1
-      : -1
-    )
-}
