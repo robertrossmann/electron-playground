@@ -21,6 +21,8 @@ describe('Application launch', function() {
 
 
   it('shows the main window', async function() {
+    this.timeout(30000)
+
     await this.app.client.waitUntilWindowLoaded()
 
     const window = this.app.browserWindow
