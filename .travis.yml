@@ -1,7 +1,5 @@
 ---
-os:
-- osx
-
+sudo: required
 language: node_js
 node_js:
 - '6'
@@ -10,7 +8,15 @@ cache:
   directories:
   - node_modules
 
+before_script:
+- sudo sh -e /etc/init.d/xvfb start
+- sleep 5
+
 script:
 - make compile
 - make lint
 - make test
+
+env:
+  global:
+  - DISPLAY=99.0
