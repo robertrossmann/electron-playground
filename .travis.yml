@@ -1,16 +1,23 @@
 ---
-sudo: required
 language: node_js
 node_js:
 - '6'
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-5
+    - g++-5
+    - xvfb
 
 cache:
   directories:
   - node_modules
 
-before_script:
-- sudo sh -e /etc/init.d/xvfb start
-- sleep 5
+before_install:
+- Xvfb :99 -screen 0 1024x768x24
 
 script:
 - make compile
@@ -19,4 +26,5 @@ script:
 
 env:
   global:
-  - DISPLAY=99.0
+  - DISPLAY=:99.0
+  - CXX=g++-5
