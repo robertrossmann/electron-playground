@@ -3,6 +3,14 @@ language: node_js
 node_js:
 - '6'
 
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-5
+    - g++-5
+
 cache:
   directories:
   - node_modules
@@ -19,3 +27,4 @@ script:
 env:
   global:
   - DISPLAY=99.0
+  - CXX=g++-5
