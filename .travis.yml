@@ -17,7 +17,8 @@ cache:
   - node_modules
 
 before_install:
-- Xvfb :99 -screen 0 1024x768x24
+- Xvfb :99 -screen 0 1024x768x24 &
+- sleep 5
 
 script:
 - make compile
