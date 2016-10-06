@@ -6,7 +6,7 @@ import {
 import EventListItem from './event-list-item'
 import { events } from '../redux/actions'
 import * as mutators from '../redux/reducers/events'
-import firebase from '../services/firebase'
+import firebase from '../../services/firebase'
 
 class EventList extends React.Component {
 
