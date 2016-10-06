@@ -2,7 +2,7 @@ import spectron from 'spectron'
 import { expect } from 'chai'
 
 describe('Application launch', function() {
-  this.timeout(10000)
+  this.timeout(30000)
 
   beforeEach(function() {
     this.app = new spectron.Application({
@@ -21,8 +21,6 @@ describe('Application launch', function() {
 
 
   it('shows the main window', async function() {
-    this.timeout(30000)
-
     await this.app.client.waitUntilWindowLoaded()
 
     const window = this.app.browserWindow
