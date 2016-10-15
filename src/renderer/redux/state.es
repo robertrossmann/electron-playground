@@ -6,7 +6,8 @@ const defaults = {
   events: {
     meta: {
       current: null,
-      filter: ''
+      filter: '',
+      syncing: true,
     },
 
     entries: {}

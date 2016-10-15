@@ -5,6 +5,7 @@ import {
   Toolbar,
   ToolbarGroup,
   TextField,
+  CircularProgress,
 } from 'material-ui'
 import { events } from '../redux/actions'
 
@@ -19,6 +20,7 @@ class AppMenu extends React.Component {
   static propTypes = {
     filter: React.PropTypes.func.isRequired,
     filterValue: React.PropTypes.string.isRequired,
+    syncing: React.PropTypes.bool.isRequired,
   }
 
   static styles = {
@@ -38,6 +40,11 @@ class AppMenu extends React.Component {
   }
 
   render() {
+    const progressStyle = {
+      visibility: this.props.syncing ? 'visible' : 'hidden',
+      marginRight: '70px',
+    }
+
     return (
       <Paper
         rounded={false}
@@ -45,6 +52,7 @@ class AppMenu extends React.Component {
       >
         <Toolbar style={AppMenu.styles.toolbar}>
           <ToolbarGroup>
+            <CircularProgress style={progressStyle}/>
             <TextField
               name="events-filter"
               hintText="Filter events..."
@@ -67,7 +75,8 @@ class AppMenu extends React.Component {
  */
 function mapState(state) {
   return {
-    filterValue: state.events.getIn(['meta', 'filter'])
+    filterValue: state.events.getIn(['meta', 'filter']),
+    syncing: state.events.getIn(['meta', 'syncing']),
   }
 }
 

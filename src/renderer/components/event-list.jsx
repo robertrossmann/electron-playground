@@ -18,6 +18,7 @@ class EventList extends React.Component {
     select: React.PropTypes.func,
     // @TODO: This should not be necessary! But for now it silences ESLint
     synced: React.PropTypes.func,
+    syncing: React.PropTypes.func,
   }
 
   static styles = {
@@ -39,6 +40,7 @@ class EventList extends React.Component {
   }
 
   componentDidMount() {
+    this.props.syncing(true)
     this.events.on('value', this.synced)
   }
 
@@ -111,6 +113,7 @@ function mapState(state) {
 const mapDispatch = {
   select: events.select,
   synced: events.synced,
+  syncing: events.syncing,
 }
 
 export default connect(mapState, mapDispatch)(EventList)

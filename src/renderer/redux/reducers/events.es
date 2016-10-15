@@ -7,8 +7,16 @@ export default {
   [events.filter]: (state, action) =>
     state.setIn(['meta', 'filter'], action.text),
 
+  [events.syncing]: (state, action) =>
+    state.setIn(['meta', 'syncing'], action.syncing),
+
   [events.synced]: (state, action) =>
-    state.setIn(['entries'], action.entries),
+    state.mergeDeep({
+      entries: action.entries,
+      meta: {
+        syncing: false
+      }
+    })
 }
 
 /**

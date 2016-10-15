@@ -16,6 +16,13 @@ export default {
     }
   },
 
+  syncing(syncing) {
+    return {
+      type: events.syncing,
+      syncing
+    }
+  },
+
   synced(entries) {
     return {
       type: events.synced,
