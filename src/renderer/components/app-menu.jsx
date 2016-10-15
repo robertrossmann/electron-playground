@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  Paper,
-  Toolbar,
+  AppBar,
   ToolbarGroup,
   TextField,
-  CircularProgress,
 } from 'material-ui'
+import { grey300 } from 'material-ui/styles/colors'
+import theme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import { events } from '../redux/actions'
 
 /**
@@ -20,19 +20,6 @@ class AppMenu extends React.Component {
   static propTypes = {
     filter: React.PropTypes.func.isRequired,
     filterValue: React.PropTypes.string.isRequired,
-    syncing: React.PropTypes.bool.isRequired,
-  }
-
-  static styles = {
-    paper: {
-      position: 'fixed',
-      width: '100%',
-    },
-
-    toolbar: {
-      height: '80px',
-      paddingTop: '15px',
-    }
   }
 
   onFilterChange(text) {
@@ -40,29 +27,25 @@ class AppMenu extends React.Component {
   }
 
   render() {
-    const progressStyle = {
-      visibility: this.props.syncing ? 'visible' : 'hidden',
-      marginRight: '70px',
-    }
-
     return (
-      <Paper
-        rounded={false}
-        style={AppMenu.styles.paper}
+      <AppBar
+        showMenuIconButton={false}
+        title=""
+        style={{ position: 'fixed', width: '100%' }}
       >
-        <Toolbar style={AppMenu.styles.toolbar}>
-          <ToolbarGroup>
-            <CircularProgress style={progressStyle}/>
-            <TextField
-              id="events-filter"
-              name="events-filter"
-              hintText="Filter events..."
-              value={this.props.filterValue}
-              onChange={event => this.onFilterChange(event.target.value)}
-            />
-          </ToolbarGroup>
-        </Toolbar>
-      </Paper>
+        <ToolbarGroup>
+          <TextField
+            id="events-filter"
+            name="events-filter"
+            hintText="Filter events..."
+            value={this.props.filterValue}
+            onChange={event => this.onFilterChange(event.target.value)}
+            hintStyle={{ color: grey300 }}
+            inputStyle={{ color: theme.palette.alternateTextColor }}
+            underlineFocusStyle={{ borderColor: theme.palette.alternateTextColor }}
+          />
+        </ToolbarGroup>
+      </AppBar>
     )
   }
 }
@@ -77,7 +60,6 @@ class AppMenu extends React.Component {
 function mapState(state) {
   return {
     filterValue: state.events.getIn(['meta', 'filter']),
-    syncing: state.events.getIn(['meta', 'syncing']),
   }
 }
 
