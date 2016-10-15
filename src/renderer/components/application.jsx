@@ -17,7 +17,7 @@ import EventList from './event-list'
 export default function Application() {
   return (
     <MuiThemeProvider muiTheme={theme(light)}>
-        <div>
+      <div>
         <Toolbar>
           <ToolbarGroup>
             <ToolbarTitle text="StereoCast Manager" />
