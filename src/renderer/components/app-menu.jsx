@@ -6,6 +6,11 @@ import {
   ToolbarTitle
 } from 'material-ui'
 
+/**
+ * Main Application Menu Component
+ *
+ * @return  {DOMNode}
+ */
 export default function AppMenu() {
   return (
     <Paper
