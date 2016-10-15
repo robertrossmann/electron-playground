@@ -36,11 +36,11 @@ class EventList extends React.Component {
   // eslint-disable-next-line no-invalid-this
   synced = snapshot => this.props.synced(snapshot.val())
 
-  onClick(eventId) {
+  onRowClick(eventId) {
     this.props.select(eventId)
   }
 
-  onChange(text) {
+  onFilterChange(text) {
     this.props.filter(text)
   }
 
@@ -62,9 +62,9 @@ class EventList extends React.Component {
       <Table
         onRowSelection={indexes =>
           indexes.length
-            ? this.onClick(entries[indexes[0]].id)
+            ? this.onRowClick(entries[indexes[0]].id)
             // Deselect
-            : this.onClick(null)
+            : this.onRowClick(null)
       }>
         <TableBody displayRowCheckbox={false}>
           {entries.map(entry =>
