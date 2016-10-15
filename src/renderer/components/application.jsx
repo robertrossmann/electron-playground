@@ -2,11 +2,7 @@ import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import light from 'material-ui/styles/baseThemes/lightBaseTheme'
 import theme from 'material-ui/styles/getMuiTheme'
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarTitle
-} from 'material-ui'
+import AppMenu from './app-menu'
 import EventList from './event-list'
 
 /**
@@ -17,13 +13,11 @@ import EventList from './event-list'
 export default function Application() {
   return (
     <MuiThemeProvider muiTheme={theme(light)}>
-      <div>
-        <Toolbar>
-          <ToolbarGroup>
-            <ToolbarTitle text="StereoCast Manager" />
-          </ToolbarGroup>
-        </Toolbar>
-        <EventList />
+      <div className="background">
+        <AppMenu />
+        <div style={{ paddingTop: '56px' }}>
+          <EventList />
+        </div>
       </div>
     </MuiThemeProvider>
   )
