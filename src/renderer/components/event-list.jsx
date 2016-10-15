@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import {
   Avatar,
   Table,
-  TableHeader,
-  TableHeaderColumn,
   TableBody,
   TableRow,
   TableRowColumn
@@ -25,7 +23,7 @@ class EventList extends React.Component {
 
   styles = {
     avatar: {
-      size: 60
+      size: 80
     },
     avatarColumn: {
       width: 65
@@ -68,13 +66,6 @@ class EventList extends React.Component {
             // Deselect
             : this.onClick(null)
       }>
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <TableRow>
-            <TableHeaderColumn style={{ width: this.styles.avatarColumn.width }} />
-            <TableHeaderColumn>Name</TableHeaderColumn>
-            <TableHeaderColumn>Starts At</TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
         <TableBody displayRowCheckbox={false}>
           {entries.map(entry =>
             <TableRow
@@ -88,8 +79,8 @@ class EventList extends React.Component {
               <TableRowColumn>
                 <h3>{entry.title}</h3>
                 <p>{`${entry.location.venue}, ${entry.location.city}`}</p>
+                <p>{(new Date(entry.startsAt)).toLocaleString()}</p>
               </TableRowColumn>
-              <TableRowColumn>{(new Date(entry.startsAt)).toLocaleString()}</TableRowColumn>
             </TableRow>
           )}
         </TableBody>
