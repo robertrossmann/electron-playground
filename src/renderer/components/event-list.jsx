@@ -15,20 +15,18 @@ class EventList extends React.Component {
 
   static propTypes = {
     events: React.PropTypes.object.isRequired,
-    filter: React.PropTypes.func,
     select: React.PropTypes.func,
     // @TODO: This should not be necessary! But for now it silences ESLint
     synced: React.PropTypes.func,
   }
 
-  styles = {
-    avatar: {
-      size: 80
+  static styles = {
+    TableRow: {
+      height: 80
     },
-    avatarColumn: {
+    TableRowColumn: {
       width: 65
-    },
-    rowHeight: 80,
+    }
   }
 
   events = firebase.database().ref('/events')
@@ -38,10 +36,6 @@ class EventList extends React.Component {
 
   onRowClick(eventId) {
     this.props.select(eventId)
-  }
-
-  onFilterChange(text) {
-    this.props.filter(text)
   }
 
   componentDidMount() {
@@ -71,15 +65,15 @@ class EventList extends React.Component {
             <TableRow
               key={entry.id}
               selected={entry.id === meta.current}
-              style={{ height: this.styles.rowHeight }}
+              style={EventList.styles.TableRow}
             >
-              <TableRowColumn style={{ width: this.styles.avatarColumn.width }}>
-                <Avatar src={entry.coverUrl} size={this.styles.avatar.size} />
+              <TableRowColumn style={EventList.styles.TableRowColumn}>
+                <Avatar src={entry.coverUrl} size={80} />
               </TableRowColumn>
               <TableRowColumn>
                 <h3>{entry.title}</h3>
-                <p>{`${entry.location.venue}, ${entry.location.city}`}</p>
-                <p>{(new Date(entry.startsAt)).toLocaleString()}</p>
+                <p>{`${entry.location.venue}, ${entry.location.city}`}<br />
+                {(new Date(entry.startsAt)).toLocaleString()}</p>
               </TableRowColumn>
             </TableRow>
           )}
@@ -116,7 +110,6 @@ function mapState(state) {
 
 const mapDispatch = {
   select: events.select,
-  filter: events.filter,
   synced: events.synced,
 }
 
