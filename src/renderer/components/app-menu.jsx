@@ -4,8 +4,8 @@ import {
   AppBar,
   ToolbarGroup,
   TextField,
+  FontIcon,
 } from 'material-ui'
-import { grey300 } from 'material-ui/styles/colors'
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import { events } from '../redux/actions'
 
@@ -27,6 +27,11 @@ class AppMenu extends React.Component {
   }
 
   render() {
+    const iconStyle = {
+      marginRight: 8,
+      color: theme.palette.alternateTextColor
+    }
+
     return (
       <AppBar
         showMenuIconButton={false}
@@ -34,13 +39,14 @@ class AppMenu extends React.Component {
         style={{ position: 'fixed', width: '100%' }}
       >
         <ToolbarGroup>
+          <FontIcon className="material-icons" style={iconStyle}>search</FontIcon>
           <TextField
             id="events-filter"
             name="events-filter"
             hintText="Filter events..."
             value={this.props.filterValue}
             onChange={event => this.onFilterChange(event.target.value)}
-            hintStyle={{ color: grey300 }}
+            hintStyle={{ color: theme.palette.alternateTextColor }}
             inputStyle={{ color: theme.palette.alternateTextColor }}
             underlineFocusStyle={{ borderColor: theme.palette.alternateTextColor }}
           />
