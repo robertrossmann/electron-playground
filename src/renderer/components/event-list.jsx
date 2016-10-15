@@ -5,7 +5,8 @@ import {
   Table,
   TableBody,
   TableRow,
-  TableRowColumn
+  TableRowColumn,
+  LinearProgress,
 } from 'material-ui'
 import { events } from '../redux/actions'
 import * as mutators from '../redux/reducers/events'
@@ -54,33 +55,42 @@ class EventList extends React.Component {
       meta
     } = this.props.events
 
+    const progressVisibility = this.props.events.meta.syncing
+      ? 'visible'
+      : 'hidden'
+
     return (
-      <Table
-        onRowSelection={indexes =>
-          indexes.length
-            ? this.onRowClick(entries[indexes[0]].id)
-            // Deselect
-            : this.onRowClick(null)
-      }>
-        <TableBody displayRowCheckbox={false}>
-          {entries.map(entry =>
-            <TableRow
-              key={entry.id}
-              selected={entry.id === meta.current}
-              style={EventList.styles.TableRow}
-            >
-              <TableRowColumn style={EventList.styles.TableRowColumn}>
-                <Avatar src={entry.coverUrl} size={80} />
-              </TableRowColumn>
-              <TableRowColumn>
-                <h3>{entry.title}</h3>
-                <p>{`${entry.location.venue}, ${entry.location.city}`}<br />
-                {(new Date(entry.startsAt)).toLocaleString()}</p>
-              </TableRowColumn>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+      <div>
+        {this.props.events.meta.syncing
+        && <LinearProgress mode="indeterminate" style={{ visibility: progressVisibility }}/>
+        }
+        <Table
+          onRowSelection={indexes =>
+            indexes.length
+              ? this.onRowClick(entries[indexes[0]].id)
+              // Deselect
+              : this.onRowClick(null)
+        }>
+          <TableBody displayRowCheckbox={false}>
+            {entries.map(entry =>
+              <TableRow
+                key={entry.id}
+                selected={entry.id === meta.current}
+                style={EventList.styles.TableRow}
+              >
+                <TableRowColumn style={EventList.styles.TableRowColumn}>
+                  <Avatar src={entry.coverUrl} size={80} />
+                </TableRowColumn>
+                <TableRowColumn>
+                  <h3>{entry.title}</h3>
+                  <p>{`${entry.location.venue}, ${entry.location.city}`}<br />
+                  {(new Date(entry.startsAt)).toLocaleString()}</p>
+                </TableRowColumn>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     )
   }
 }
