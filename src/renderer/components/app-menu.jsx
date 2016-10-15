@@ -54,6 +54,7 @@ class AppMenu extends React.Component {
           <ToolbarGroup>
             <CircularProgress style={progressStyle}/>
             <TextField
+              id="events-filter"
               name="events-filter"
               hintText="Filter events..."
               value={this.props.filterValue}
