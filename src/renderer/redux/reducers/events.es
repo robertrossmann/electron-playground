@@ -7,14 +7,8 @@ export default {
   [events.filter]: (state, action) =>
     state.setIn(['meta', 'filter'], action.text),
 
-  [events.childAdded]: (state, action) =>
-    state.setIn(['entries', action.event.id], action.event),
-
-  [events.childRemoved]: (state, action) =>
-    state.deleteIn(['entries', action.event.id]),
-
-  [events.childChanged]: (state, action) =>
-    state.setIn(['entries', action.event.id], action.event)
+  [events.synced]: (state, action) =>
+    state.setIn(['entries'], action.entries),
 }
 
 /**

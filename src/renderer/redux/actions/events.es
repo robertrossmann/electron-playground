@@ -16,24 +16,10 @@ export default {
     }
   },
 
-  childAdded(event) {
+  synced(entries) {
     return {
-      type: events.childAdded,
-      event
+      type: events.synced,
+      entries
     }
   },
-
-  childRemoved(event) {
-    return {
-      type: events.childRemoved,
-      event
-    }
-  },
-
-  childChanged(event) {
-    return {
-      type: events.childChanged,
-      event
-    }
-  }
 }

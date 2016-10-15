@@ -1,9 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  ListGroup
-} from 'react-photonkit'
-import EventListItem from './event-list-item'
+  Avatar,
+  Table,
+  TableHeader,
+  TableHeaderColumn,
+  TableBody,
+  TableRow,
+  TableRowColumn
+} from 'material-ui'
 import { events } from '../redux/actions'
 import * as mutators from '../redux/reducers/events'
 import firebase from '../../services/firebase'
@@ -12,22 +17,26 @@ class EventList extends React.Component {
 
   static propTypes = {
     events: React.PropTypes.object.isRequired,
-    select: React.PropTypes.func,
     filter: React.PropTypes.func,
-
+    select: React.PropTypes.func,
     // @TODO: This should not be necessary! But for now it silences ESLint
-    childAdded: React.PropTypes.func,
-    childRemoved: React.PropTypes.func,
-    childChanged: React.PropTypes.func
+    synced: React.PropTypes.func,
+  }
+
+  styles = {
+    avatar: {
+      size: 60
+    },
+    avatarColumn: {
+      width: 65
+    },
+    rowHeight: 80,
   }
 
   events = firebase.database().ref('/events')
 
-  /* eslint-disable no-invalid-this */
-  childAdded = snapshot => this.props.childAdded(snapshot.val())
-  childRemoved = snapshot => this.props.childRemoved(snapshot.val())
-  childChanged = snapshot => this.props.childChanged(snapshot.val())
-  /* eslint-enable no-invalid-this */
+  // eslint-disable-next-line no-invalid-this
+  synced = snapshot => this.props.synced(snapshot.val())
 
   onClick(eventId) {
     this.props.select(eventId)
@@ -38,15 +47,11 @@ class EventList extends React.Component {
   }
 
   componentDidMount() {
-    this.events.on('child_added', this.childAdded)
-    this.events.on('child_removed', this.childRemoved)
-    this.events.on('child_changed', this.childChanged)
+    this.events.on('value', this.synced)
   }
 
   componentWillUnmount() {
-    this.events.off('child_added', this.childAdded)
-    this.events.off('child_removed', this.childRemoved)
-    this.events.off('child_changed', this.childChanged)
+    this.events.off('value', this.synced)
   }
 
   render() {
@@ -56,28 +61,39 @@ class EventList extends React.Component {
     } = this.props.events
 
     return (
-      <ListGroup>
-        <li className="list-group-header">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Filter events..."
-            value={meta.filter}
-            onChange={event => this.onChange(event.target.value)}
-          />
-        </li>
-        {entries.map(event =>
-          <EventListItem
-            key={event.id}
-            active={event.id === meta.current}
-            event={event.title}
-            location={`${event.location.venue}, ${event.location.city}`}
-            startsAt={(new Date(event.startsAt)).toLocaleString()}
-            cover={event.coverUrl}
-            onClick={() => this.onClick(event.id)}
-          />
-        )}
-      </ListGroup>
+      <Table
+        onRowSelection={indexes =>
+          indexes.length
+            ? this.onClick(entries[indexes[0]].id)
+            // Deselect
+            : this.onClick(null)
+      }>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+          <TableRow>
+            <TableHeaderColumn style={{ width: this.styles.avatarColumn.width }} />
+            <TableHeaderColumn>Name</TableHeaderColumn>
+            <TableHeaderColumn>Starts At</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody displayRowCheckbox={false}>
+          {entries.map(entry =>
+            <TableRow
+              key={entry.id}
+              selected={entry.id === meta.current}
+              style={{ height: this.styles.rowHeight }}
+            >
+              <TableRowColumn style={{ width: this.styles.avatarColumn.width }}>
+                <Avatar src={entry.coverUrl} size={this.styles.avatar.size} />
+              </TableRowColumn>
+              <TableRowColumn>
+                <h3>{entry.title}</h3>
+                <p>{`${entry.location.venue}, ${entry.location.city}`}</p>
+              </TableRowColumn>
+              <TableRowColumn>{(new Date(entry.startsAt)).toLocaleString()}</TableRowColumn>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     )
   }
 }
@@ -110,9 +126,7 @@ function mapState(state) {
 const mapDispatch = {
   select: events.select,
   filter: events.filter,
-  childAdded: events.childAdded,
-  childRemoved: events.childRemoved,
-  childChanged: events.childChanged
+  synced: events.synced,
 }
 
 export default connect(mapState, mapDispatch)(EventList)

@@ -43,8 +43,7 @@ function mkwindow() {
   const window = new electron.BrowserWindow({
     width: 1200,
     height: 800,
-    show: false,
-    titleBarStyle: 'hidden'
+    show: false
   })
 
   windows.add(window)
