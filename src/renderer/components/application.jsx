@@ -15,7 +15,7 @@ export default function Application() {
     <MuiThemeProvider muiTheme={theme(light)}>
       <div className="background">
         <AppMenu />
-        <div style={{ paddingTop: '56px' }}>
+        <div style={{ paddingTop: '70px' }}>
           <EventList />
         </div>
       </div>
