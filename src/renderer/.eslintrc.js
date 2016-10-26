@@ -2,8 +2,7 @@
 
 module.exports = {
   env: {
-    browser: true,
-    node: false,
+    'shared-node-browser': true,
   },
 
   plugins: [
@@ -19,5 +18,5 @@ module.exports = {
 
   rules: {
     'no-warning-comments': 0,
-  }
+  },
 }
