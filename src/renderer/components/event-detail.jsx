@@ -16,14 +16,10 @@ class EventDetail extends React.Component {
     )
   }
 
-  renderEmpty() {
-    return null
-  }
-
   render() {
     return this.props.event
       ? this.renderEvent(this.props.event)
-      : this.renderEmpty()
+      : null
   }
 }
 
