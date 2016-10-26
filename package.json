@@ -26,7 +26,7 @@
     "source-map-support": "^0.4.2"
   },
   "devDependencies": {
-    "@strv/eslint-config-javascript": "^6.0.0-alpha.2",
+    "@strv/eslint-config-javascript": "^6.0.0-alpha.3",
     "babel-cli": "^6.7.5",
     "babel-eslint": "^7.0.0",
     "babel-plugin-transform-async-to-generator": "^6.8.0",

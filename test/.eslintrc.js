@@ -2,7 +2,7 @@
 
 module.exports = {
   env: {
-    mocha: true
+    mocha: true,
   },
 
   rules: {
@@ -11,6 +11,6 @@ module.exports = {
     'no-invalid-this': 0,
     'func-names': 0,
     // Account for main describe() block, nested describe() block and one it() block
-    'max-nested-callbacks': [1, 7]
+    'max-nested-callbacks': [1, 7],
   }
 }

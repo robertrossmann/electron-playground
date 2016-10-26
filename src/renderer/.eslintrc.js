@@ -3,23 +3,21 @@
 module.exports = {
   env: {
     browser: true,
-    node: false
+    node: false,
   },
 
   plugins: [
     'babel',
-    'react'
+    'react',
   ],
 
   extends: [
-    '@strv/javascript/environments/react/latest',
-    '@strv/javascript/environments/react/best-practices',
+    '@strv/javascript/environments/react/v15',
     '@strv/javascript/environments/react/optional',
-    '@strv/javascript/coding-styles/base'
+    '@strv/javascript/coding-styles/recommended',
   ],
 
   rules: {
-    'class-methods-use-this': 0,
-    'no-warning-comments': 0
+    'no-warning-comments': 0,
   }
 }
