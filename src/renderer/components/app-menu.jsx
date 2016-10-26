@@ -29,7 +29,7 @@ class AppMenu extends React.Component {
   render() {
     const iconStyle = {
       marginRight: 8,
-      color: theme.palette.alternateTextColor
+      color: theme.palette.alternateTextColor,
     }
 
     return (
@@ -70,7 +70,7 @@ function mapState(state) {
 }
 
 const mapDispatch = {
-  filter: events.filter
+  filter: events.filter,
 }
 
 export default connect(mapState, mapDispatch)(AppMenu)

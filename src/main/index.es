@@ -4,7 +4,7 @@ import path from 'path'
 import devtron from 'devtron'
 import install, {
   REACT_DEVELOPER_TOOLS,
-  REDUX_DEVTOOLS
+  REDUX_DEVTOOLS,
 } from 'electron-devtools-installer'
 
 // All the application windows currently open
@@ -43,7 +43,7 @@ function mkwindow() {
   const window = new electron.BrowserWindow({
     width: 1200,
     height: 800,
-    show: false
+    show: false,
   })
 
   windows.add(window)

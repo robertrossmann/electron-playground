@@ -7,7 +7,7 @@ describe('Application launch', function() {
   beforeEach(function() {
     this.app = new spectron.Application({
       path: './node_modules/.bin/electron',
-      args: ['.']
+      args: ['.'],
     })
 
     return this.app.start()

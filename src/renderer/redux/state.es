@@ -10,8 +10,8 @@ const defaults = {
       syncing: true,
     },
 
-    entries: {}
-  }
+    entries: {},
+  },
 }
 const state = merge(config.get('state') || {})
   .and(defaults)
@@ -20,5 +20,5 @@ const state = merge(config.get('state') || {})
 
 // Initial state for the redux store
 export default {
-  events: immutable.fromJS(state.events)
+  events: immutable.fromJS(state.events),
 }

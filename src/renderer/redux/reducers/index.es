@@ -1,7 +1,7 @@
 import events from './events'
 
 export default {
-  events: (...args) => reduce(events, ...args)
+  events: (...args) => reduce(events, ...args),
 }
 
 /**

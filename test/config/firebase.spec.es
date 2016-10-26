@@ -13,7 +13,7 @@ describe('config.firebase', function() {
   it('has minimal required configuration', function() {
     expect(config.firebase).to.have.all.keys([
       'apiKey',
-      'databaseURL'
+      'databaseURL',
     ])
   })
 })

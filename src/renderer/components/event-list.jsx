@@ -24,11 +24,11 @@ class EventList extends React.Component {
 
   static styles = {
     TableRow: {
-      height: 80
+      height: 80,
     },
     TableRowColumn: {
-      width: 65
-    }
+      width: 65,
+    },
   }
 
   events = firebase.database().ref('/events')
@@ -52,7 +52,7 @@ class EventList extends React.Component {
   render() {
     const {
       entries,
-      meta
+      meta,
     } = this.props.events
 
     const progressVisibility = this.props.events.meta.syncing
@@ -116,7 +116,7 @@ function mapState(state) {
   data.entries = entries
 
   return {
-    events: data
+    events: data,
   }
 }
 

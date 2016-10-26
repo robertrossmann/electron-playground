@@ -4,7 +4,7 @@ import reducers from './reducers'
 import state from './state'
 
 const middleware = [
-  logger()
+  logger(),
 ]
 
 /**

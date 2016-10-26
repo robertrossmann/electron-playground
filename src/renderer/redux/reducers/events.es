@@ -14,9 +14,9 @@ export default {
     state.mergeDeep({
       entries: action.entries,
       meta: {
-        syncing: false
-      }
-    })
+        syncing: false,
+      },
+    }),
 }
 
 /**
