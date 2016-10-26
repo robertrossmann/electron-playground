@@ -5,6 +5,7 @@ all: compile
 compile:
 	@$(bin)babel src --extensions .es,.jsx --source-maps both --out-dir src
 	@$(bin)babel test --extensions .es,.jsx --source-maps both --out-dir test
+	@$(bin)stylus --sourcemap --sourcemap-base src/renderer src/**
 
 lint:
 	@$(bin)eslint --ext .es,.jsx src test
@@ -14,7 +15,13 @@ test: compile
 
 # Delete all the .js and .js.map files (excluding any potential dotfiles with .js extension)
 distclean:
-	@find . \( -name '*.js' -or -name '*.js.map' \) \
+	@find . \
+		\( \
+			-name '*.js' \
+			-or -name '*.js.map' \
+			-or -name '*.css' \
+			-or -name '*.css.map' \
+		\) \
 		-not -path './node_modules/*' \
 		-not -name '.*.js' \
 		-print -delete

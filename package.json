@@ -41,7 +41,8 @@
     "eslint-plugin-babel": "^3.3.0",
     "mocha": "^3.0.2",
     "redux-logger": "^2.6.1",
-    "spectron": "^3.3.0"
+    "spectron": "^3.3.0",
+    "stylus": "^0.54.5"
   },
   "engines": {},
   "homepage": "https://github.com/Alaneor/electron-playground",

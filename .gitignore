@@ -4,6 +4,8 @@ node_modules
 # Generated files
 **/*.js
 **/*.js.map
+**/*.css
+**/*.css.map
 !**/.eslintrc.js
 docs
 coverage
