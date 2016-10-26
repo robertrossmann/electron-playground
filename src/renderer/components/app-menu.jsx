@@ -36,7 +36,7 @@ class AppMenu extends React.Component {
       <AppBar
         showMenuIconButton={false}
         title=""
-        style={{ position: 'fixed', width: '100%' }}
+        style={{ width: '100%' }}
       >
         <ToolbarGroup>
           <FontIcon className="material-icons" style={iconStyle}>search</FontIcon>
