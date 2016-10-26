@@ -14,27 +14,11 @@ import { Component as EventDetail } from './event-detail'
 export default function Application() {
   return (
     <MuiThemeProvider muiTheme={theme(light)}>
-      <div className="background">
+      <div id="application">
         <AppMenu />
-        <div
-          className="content"
-          style={{
-            display: 'flex',
-          }}
-        >
-          <div style={{
-            flex: 2,
-            overflow: 'auto',
-            height: '100vh',
-          }}>
-            <EventList />
-          </div>
-          <div style={{
-            flex: 1,
-            maxWidth: 400,
-          }}>
-            <EventDetail />
-          </div>
+        <div id="content">
+          <EventList />
+          <EventDetail />
         </div>
       </div>
     </MuiThemeProvider>

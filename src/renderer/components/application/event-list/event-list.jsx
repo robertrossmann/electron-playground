@@ -22,18 +22,9 @@ class EventList extends React.Component {
     syncing: React.PropTypes.func,
   }
 
-  static styles = {
-    TableRow: {
-      height: 80,
-    },
-    TableRowColumn: {
-      width: 65,
-    },
-  }
 
   events = firebase.database().ref('/events')
 
-  // eslint-disable-next-line no-invalid-this
   synced = snapshot => this.props.synced(snapshot.val())
 
   onRowClick(eventId) {
@@ -55,28 +46,23 @@ class EventList extends React.Component {
       meta,
     } = this.props.events
 
-    const progressVisibility = this.props.events.meta.syncing
-      ? 'visible'
-      : 'hidden'
-
     return (
-      <div>
+      <div id="event-list">
         {this.props.events.meta.syncing
-        && <LinearProgress mode="indeterminate" style={{ visibility: progressVisibility }}/>
+        && <LinearProgress mode="indeterminate" />
         }
         <Table
           onRowSelection={indexes =>
             indexes.length && this.onRowClick(entries[indexes[0]].id)
         }>
-          <TableBody displayRowCheckbox={false}>
+          <TableBody displayRowCheckbox={false} deselectOnClickaway={false}>
             {entries.map(entry =>
               <TableRow
                 key={entry.id}
                 selected={entry.id === meta.current}
-                style={EventList.styles.TableRow}
               >
-                <TableRowColumn style={EventList.styles.TableRowColumn}>
-                  <Avatar src={entry.coverUrl} size={80} />
+                <TableRowColumn className="avatar-col">
+                  <Avatar src={entry.coverUrl} size={null} />
                 </TableRowColumn>
                 <TableRowColumn>
                   <h3>{entry.title}</h3>

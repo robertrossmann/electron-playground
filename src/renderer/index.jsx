@@ -15,7 +15,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Application />
   </Provider>,
-  document.getElementById('application')
+  document.getElementById('root')
 )
 
 setInterval(() => {

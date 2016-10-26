@@ -1,26 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-class EventDetail extends React.Component {
-
-  static propTypes = {
-    event: React.PropTypes.object,
+function EventDetail(props) {
+  if (!props.event) {
+    return <div id="event-detail" />
   }
 
-  renderEvent(event) {
-    return (
-      <div style={{ padding: 20 }}>
-        <h2>{event.title}</h2>
-        <img src={event.coverUrl} style={{ width: '100%' }} />
-      </div>
-    )
-  }
+  const { event } = props
 
-  render() {
-    return this.props.event
-      ? this.renderEvent(this.props.event)
-      : null
-  }
+  return (
+    <div id="event-detail">
+      <h2>{event.title}</h2>
+      <img className="cover-art" src={event.coverUrl} />
+    </div>
+  )
+}
+
+EventDetail.propTypes = {
+  event: React.PropTypes.object,
 }
 
 /**
