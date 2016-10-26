@@ -2,9 +2,9 @@ import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import light from 'material-ui/styles/baseThemes/lightBaseTheme'
 import theme from 'material-ui/styles/getMuiTheme'
-import AppMenu from './app-menu'
-import EventList from './event-list'
-import EventDetail from './event-detail'
+import { Component as AppMenu } from './app-menu'
+import { Component as EventList } from './event-list'
+import { Component as EventDetail } from './event-detail'
 
 /**
  * Application component

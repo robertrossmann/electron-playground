@@ -8,9 +8,9 @@ import {
   TableRowColumn,
   LinearProgress,
 } from 'material-ui'
-import { events } from '../redux/actions'
-import * as mutators from '../redux/reducers/events'
-import firebase from '../../services/firebase'
+import { events } from '../../../redux/actions'
+import * as mutators from '../../../redux/reducers/events'
+import firebase from '../../../../services/firebase'
 
 class EventList extends React.Component {
 

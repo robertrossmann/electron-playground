@@ -7,7 +7,7 @@ import {
   FontIcon,
 } from 'material-ui'
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme'
-import { events } from '../redux/actions'
+import { events } from '../../../redux/actions'
 
 /**
  * Main Application Menu Component
