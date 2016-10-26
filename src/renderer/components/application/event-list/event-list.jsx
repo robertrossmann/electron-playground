@@ -66,10 +66,7 @@ class EventList extends React.Component {
         }
         <Table
           onRowSelection={indexes =>
-            indexes.length
-              ? this.onRowClick(entries[indexes[0]].id)
-              // Deselect
-              : this.onRowClick(null)
+            indexes.length && this.onRowClick(entries[indexes[0]].id)
         }>
           <TableBody displayRowCheckbox={false}>
             {entries.map(entry =>
