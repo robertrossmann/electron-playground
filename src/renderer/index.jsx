@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import injectTapEvent from 'react-tap-event-plugin'
-import { Component as Application } from './components/application'
+import { Component as EventManager } from './components/event-manager'
 import redux from './redux'
 import config from '../services/config'
 
@@ -13,7 +13,7 @@ const store = redux()
 
 ReactDOM.render(
   <Provider store={store}>
-    <Application />
+    <EventManager />
   </Provider>,
   document.getElementById('root')
 )
