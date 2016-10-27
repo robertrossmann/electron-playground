@@ -3,12 +3,12 @@ bin := node_modules/.bin/
 all: compile
 
 compile:
-	@$(bin)babel src --extensions .es,.jsx --source-maps both --out-dir src
-	@$(bin)babel test --extensions .es,.jsx --source-maps both --out-dir test
+	@$(bin)babel src --extensions .mjs,.jsx --source-maps both --out-dir src
+	@$(bin)babel test --extensions .mjs,.jsx --source-maps both --out-dir test
 	@$(bin)stylus --sourcemap --sourcemap-base src/renderer src/**
 
 lint:
-	@$(bin)eslint --ext .es,.jsx src test
+	@$(bin)eslint --ext .mjs,.jsx src test
 
 test: compile
 	@$(bin)mocha
