@@ -1,5 +1,23 @@
 #event-detail
   padding 20px
+  background-color #eeeeee
+  overflow scroll
 
   img.cover-art
     width 100%
+    border 1px solid #e0e0e0
+
+  table
+    background-color inherit !important
+    tr
+      height 28px !important
+      td
+        height inherit !important
+
+    // Property name
+    td:first-child
+      font-weight bold
+
+    // Property value
+    td:last-child
+      color #757575
