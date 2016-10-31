@@ -26,9 +26,8 @@ function EventDetail(props) {
 
   return (
     <div id="event-detail">
+    <h3>{event.title}</h3>
       <img className="cover-art bordered" src={event.coverUrl} />
-      <h3>{event.title}</h3>
-      <Divider />
       <Section title="General" separated>
         <Row title="Kind" value={event.kind} />
         <Row title="Current state" value={event.state} />
