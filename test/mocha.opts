@@ -1,3 +1,2 @@
 --recursive
 --check-leaks
---no-exit
