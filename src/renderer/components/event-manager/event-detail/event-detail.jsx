@@ -7,6 +7,8 @@ import {
   TableRowColumn,
 } from 'material-ui'
 import { connect } from 'react-redux'
+import qs from 'querystring'
+import config from '../../../../config'
 
 function EventDetail(props) {
   if (!props.event) {
@@ -14,19 +16,26 @@ function EventDetail(props) {
   }
 
   const { event } = props
+  const googleQuery = qs.stringify({
+    key: config.googleMaps.apiKey,
+    // eslint-disable-next-line id-length
+    q: `${event.location.coordinates.lat},${event.location.coordinates.lon}`,
+    zoom: 15,
+  })
+  const mapUrl = `https://www.google.com/maps/embed/v1/place?${googleQuery}`
 
   return (
     <div id="event-detail">
-      <img className="cover-art" src={event.coverUrl} />
+      <img className="cover-art bordered" src={event.coverUrl} />
       <h3>{event.title}</h3>
       <Divider />
-      <Section title="General information">
+      <Section title="General" separated>
         <Row title="Kind" value={event.kind} />
         <Row title="Current state" value={event.state} />
         <Row title="Starts at" value={event.startsAt} />
         <Row title="Finished at" value={event.finishedAt || '---'} />
       </Section>
-      <Section title="Pricing & availability" last>
+      <Section title="Pricing & availability" separated>
         <Row title="Available on" value={event.purchasesOpenAt || '---'} />
         <Row
           title="Purchase time"
@@ -41,6 +50,16 @@ function EventDetail(props) {
         <Row title="Event price" value={`$${event.eventSKU.split('.').pop() - 0.01}`} />
         <Row title="Track price" value={`$${event.trackSKU.split('.').pop() - 0.01}`} />
       </Section>
+      <Section title="Location">
+        <Row title="Venue" value={event.location.venue} />
+        <Row title="City" value={event.location.city} />
+        <Row title="Country" value={event.location.country} />
+      </Section>
+      <iframe
+        className="google-map bordered"
+        frameBorder="0"
+        src={mapUrl}
+      />
     </div>
   )
 }
@@ -59,14 +78,14 @@ function Section(props) {
           {props.children}
         </TableBody>
       </Table>
-      {!props.last && <Divider />}
+      {props.separated && <Divider />}
     </div>
   )
 }
 
 Section.propTypes = {
   children: React.PropTypes.node,
-  last: React.PropTypes.bool,
+  separated: React.PropTypes.bool,
   title: React.PropTypes.string.isRequired,
 }
 
