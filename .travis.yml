@@ -1,7 +1,9 @@
 ---
+sudo: required
+dist: trusty
 language: node_js
 node_js:
-- '6'
+- '7'
 
 addons:
   apt:
@@ -10,14 +12,13 @@ addons:
     packages:
     - gcc-5
     - g++-5
-    - xvfb
 
 cache:
   directories:
   - node_modules
 
 before_install:
-- Xvfb :99 -screen 0 1024x768x24 &
+- sh -e /etc/init.d/xvfb start
 - sleep 5
 
 script:
