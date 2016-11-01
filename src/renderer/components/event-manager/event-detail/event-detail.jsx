@@ -5,7 +5,9 @@ import {
   TableBody,
   TableRow,
   TableRowColumn,
+  FloatingActionButton,
 } from 'material-ui'
+import { EditorModeEdit as EditIcon } from 'material-ui/svg-icons'
 import { connect } from 'react-redux'
 import qs from 'querystring'
 import config from '../../../../config'
@@ -26,7 +28,16 @@ function EventDetail(props) {
 
   return (
     <div id="event-detail">
-    <h3>{event.title}</h3>
+      <div className="event-detail-title-container">
+        <div>
+          <h3>{event.title}</h3>
+        </div>
+        <div>
+          <FloatingActionButton secondary>
+            <EditIcon />
+          </FloatingActionButton>
+        </div>
+      </div>
       <img className="cover-art bordered" src={event.coverUrl} />
       <Section title="General" separated>
         <Row title="Kind" value={event.kind} />
