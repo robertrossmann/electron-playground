@@ -1,6 +1,8 @@
 import spectron from 'spectron'
 import { expect } from 'chai'
 
+process.env.NODE_ENV = 'testing'
+
 describe('Application launch', function() {
   this.timeout(30000)
 
