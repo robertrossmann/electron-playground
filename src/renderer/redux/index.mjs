@@ -2,9 +2,12 @@ import * as redux from 'redux'
 import logger from 'redux-logger'
 import reducers from './reducers'
 import state from './state'
+import persistence from './middleware/persistence'
+import config from '../../services/config'
 
 const middleware = [
   logger(),
+  persistence(config),
 ]
 
 /**
