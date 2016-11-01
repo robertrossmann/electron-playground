@@ -7,7 +7,9 @@ import {
   TableRow,
   TableRowColumn,
   LinearProgress,
+  FloatingActionButton,
 } from 'material-ui'
+import { ContentAdd as AddIcon } from 'material-ui/svg-icons'
 import { events } from '../../../redux/actions'
 import * as mutators from '../../../redux/reducers/events'
 import firebase from '../../../../services/firebase'
@@ -47,32 +49,37 @@ class EventList extends React.Component {
     } = this.props.events
 
     return (
-      <div id="event-list">
-        {this.props.events.meta.syncing
-        && <LinearProgress mode="indeterminate" />
-        }
-        <Table
-          onRowSelection={indexes =>
-            indexes.length && this.onRowClick(entries[indexes[0]].id)
-        }>
-          <TableBody displayRowCheckbox={false} deselectOnClickaway={false}>
-            {entries.map(entry =>
-              <TableRow
-                key={entry.id}
-                selected={entry.id === meta.current}
-              >
-                <TableRowColumn className="avatar-col">
-                  <Avatar src={entry.coverUrl} size={null} />
-                </TableRowColumn>
-                <TableRowColumn>
-                  <h3>{entry.title}</h3>
-                  <p>{`${entry.location.venue}, ${entry.location.city}`}<br />
-                  {(new Date(entry.startsAt)).toLocaleString()}</p>
-                </TableRowColumn>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+      <div className="event-list-container">
+        <FloatingActionButton className="create-event">
+          <AddIcon />
+        </FloatingActionButton>
+        <div id="event-list">
+          {this.props.events.meta.syncing
+          && <LinearProgress mode="indeterminate" />
+          }
+          <Table
+            onRowSelection={indexes =>
+              indexes.length && this.onRowClick(entries[indexes[0]].id)
+          }>
+            <TableBody displayRowCheckbox={false} deselectOnClickaway={false}>
+              {entries.map(entry =>
+                <TableRow
+                  key={entry.id}
+                  selected={entry.id === meta.current}
+                >
+                  <TableRowColumn className="avatar-col">
+                    <Avatar src={entry.coverUrl} size={null} />
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    <h3>{entry.title}</h3>
+                    <p>{`${entry.location.venue}, ${entry.location.city}`}<br />
+                    {(new Date(entry.startsAt)).toLocaleString()}</p>
+                  </TableRowColumn>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     )
   }
