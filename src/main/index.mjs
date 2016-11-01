@@ -1,12 +1,8 @@
 import electron from 'electron'
 import path from 'path'
-// @TODO: Only import this when developing
-import devtron from 'devtron'
-import install, {
-  REACT_DEVELOPER_TOOLS,
-  REDUX_DEVTOOLS,
-} from 'electron-devtools-installer'
 
+// eslint-disable-next-line no-process-env
+const env = process.env.NODE_ENV || 'development'
 // All the application windows currently open
 const windows = new Set()
 
@@ -20,10 +16,22 @@ electron.app.on('window-all-closed', () =>
 )
 
 // Electron is ready to serve, open the main view
-electron.app.once('ready', () => devtron.install())
-electron.app.once('ready', () => install(REACT_DEVELOPER_TOOLS))
-electron.app.once('ready', () => install(REDUX_DEVTOOLS))
 electron.app.once('ready', mkwindow)
+
+if (env === 'development') {
+  /* eslint-disable global-require */
+  const devtron = require('devtron')
+  const {
+    default: install,
+    REACT_DEVELOPER_TOOLS,
+    REDUX_DEVTOOLS,
+  } = require('electron-devtools-installer')
+  /* eslint-enable global-require */
+
+  electron.app.once('ready', () => devtron.install())
+  electron.app.once('ready', () => install(REACT_DEVELOPER_TOOLS))
+  electron.app.once('ready', () => install(REDUX_DEVTOOLS))
+}
 
 // Someone clicked the application icon!
 electron.app.on('activate', () => {
@@ -51,7 +59,7 @@ function mkwindow() {
   window.webContents.once('did-finish-load', () => {
     window.show()
     window.focus()
-    window.toggleDevTools()
+    env === 'development' && window.toggleDevTools()
   })
 
   window.loadURL(`file://${view}`)
